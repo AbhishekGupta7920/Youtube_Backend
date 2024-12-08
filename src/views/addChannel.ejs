@@ -1,0 +1,23 @@
+<%- include('./partials/navbar.ejs') %>
+    <div class="bg-gray-900 px-8 py-6 flex justify-center items-center">
+
+        <div
+            class="px-8 py-6 flex flex-col gap-4 bg-gray-950 text-lg text-gray-200 rounded-lg w-full md:w-3/4 lg:w-1/2">
+            <h1 class="text-center text-orange-500 text-2xl font-semibold">Add Channel </h1>
+            <form action="/addChannel" method="POST" class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2">
+                    <label for="channelName">Channel Name</label>
+                    <input required type="text" id="channelName" name="channelName"
+                        class="bg-gray-700 h-12 px-2 rounded-md border border-cyan-600 hover:border-cyan-400"
+                        placeholder="Enter Channel Name ">
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                        class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 focus:outline-none focus:bg-orange-600">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>

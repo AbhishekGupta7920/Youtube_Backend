@@ -1,0 +1,43 @@
+<%- include('./partials/navbar.ejs') %>
+
+<div class="bg-gray-900 text-gray-200 p-6">
+    <h1 class="text-4xl font-bold text-center text-blue-600 mb-8">Discover a Variety of Channels</h1>
+    
+    <% if (locals.allChannels) { %>
+        <!-- Grid Layout for Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+            <% allChannels.forEach(element => { %>
+                <!-- Individual Card -->
+                <div 
+                    onclick="redirectToChannel('<%= element._id %>')" 
+                    class="bg-gray-800 hover:bg-gray-700 border border-cyan-500 hover:border-cyan-400 rounded-lg shadow-lg transition-transform transform hover:scale-105 cursor-pointer overflow-hidden">
+                    
+                    <!-- Channel Name -->
+                    <div class="bg-gradient-to-r from-cyan-200 to-cyan-800 text-center text-gray-900 font-bold text-lg py-3">
+                        <%= element.channelName %>
+                    </div>
+
+                    <!-- Channel Details -->
+                    <div class="p-4 text-center">
+                        <p class="text-lg font-medium">Subscribers: <span class="text-cyan-400"><%= element.subscribers.length %></span></p>
+                        <p class="text-lg font-medium">Subscriptions: <span class="text-cyan-400"><%= element.subscriptions.length %></span></p>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <!-- Fallback Message -->
+        <div class="text-center text-gray-400 text-lg">No channels available. Start adding channels!</div>
+    <% } %>
+</div>
+
+<script>
+    function redirectToChannel(id) {
+        // Construct the dynamic route using the id
+        const route = `/channel/${id}`;
+        // Navigate to the constructed route
+        window.location.href = route;
+    }
+</script>
+
+<%- include('./partials/footer.ejs') %>

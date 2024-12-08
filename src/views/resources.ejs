@@ -1,0 +1,60 @@
+<%- include('./partials/navbar.ejs') %>
+
+<div class="bg-gray-900 p-8 space-y-8">
+    <!-- Heading -->
+    <h1 class="text-4xl font-bold text-cyan-500 text-center">A Guide to All API Routes</h1>
+    
+    <!-- Description -->
+    <p class="text-center text-green-400 text-lg">
+        All HTTP methods are supported. You can use HTTP or HTTPS for your requests.
+    </p>
+    
+    <!-- Stylish Rows Container -->
+    <div class="space-y-6">
+        <% const routes = [
+            { id: 1, route: '/yt/all', method: 'GET', details: 'Get all channels', link: true },
+            { id: 2, route: '/yt/names', method: 'GET', details: 'Get all names', link: true },
+            { id: 3, route: '/yt/:channelId/subscribers', method: 'GET', details: 'All subscribers of a channel', link: true },
+            { id: 4, route: '/yt/:channelId/subscriptions', method: 'GET', details: 'All subscriptions of a channel', link: true },
+            { id: 5, route: '/yt/:channelId/subscribe', method: 'POST', details: 'To subscribe a channel', link: false },
+            { id: 6, route: '/yt/addChannel', method: 'POST', details: 'Add channel, channelName from req.body', link: false },
+            { id: 7, route: '/channelId/delete', method: 'DELETE', details: 'To delete channel', link: false },
+            { id: 8, route: '/channelId/update', method: 'PUT', details: 'Update channel, channelName from req.body', link: false },
+        ]; %>
+        
+        <% routes.forEach(route => { %>
+            <!-- Designer Box for Each Route -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center justify-between">
+                    <!-- Route and Method -->
+                    <div>
+                        <p class="text-2xl font-semibold text-amber-400">
+                            <%= route.route %>
+                        </p>
+                        <p class="text-sm text-gray-400 mt-1">Method: 
+                            <span class="text-<%= route.method === 'GET' ? 'green-400' : route.method === 'POST' ? 'blue-400' : route.method === 'DELETE' ? 'red-400' : 'yellow-400' %>">
+                                <%= route.method %>
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Link or Disabled -->
+                    <% if (route.link) { %>
+                        <a href="<%= route.route %>" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition-all">
+                            Open
+                        </a>
+                    <% } else { %>
+                        <button class="bg-gray-600 text-gray-400 px-4 py-2 rounded-lg cursor-not-allowed">
+                            Disabled
+                        </button>
+                    <% } %>
+                </div>
+
+                <!-- Details -->
+                <p class="text-gray-300 mt-4"><%= route.details %></p>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
