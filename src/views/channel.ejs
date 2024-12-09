@@ -1,99 +1,122 @@
 <%- include('./partials/navbar.ejs') %>
+<!-- Include the navigation bar -->
 
-    <div class="bg-gray-900 text-gray-200 p-4">
+<div class="bg-gray-900 text-gray-200 p-4">
+    <!-- Main container with a dark background and light text -->
 
-        <div class="p-4 text-3xl text-cyan-500 font-semibold"> My Channel </div>
-        <div class="p-4 flex ">
-            <% if (locals.channelDetails) { %>
-                <div class="p-8 flex flex-wrap gap-8 bg-gray-950 rounded-lg">
-                    <div class="flex flex-col justify-center items-center gap-2 ">
-                        <div
-                            class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
-                            <%= channelDetails.channelName %>
-                        </div>
-                        <div> Name </div>
+    <div class="p-4 text-3xl text-cyan-500 font-semibold"> My Channel </div>
+    <!-- Section title for "My Channel" -->
+
+    <div class="p-4 flex">
+        <% if (locals.channelDetails) { %>
+            <!-- Check if channel details are available -->
+
+            <div class="p-8 flex flex-wrap gap-8 bg-gray-950 rounded-lg">
+                <!-- Card to display channel details -->
+
+                <!-- Display Channel Name -->
+                <div class="flex flex-col justify-center items-center gap-2">
+                    <div
+                        class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
+                        <%= channelDetails.channelName %>
                     </div>
-                    <div class="flex flex-col justify-center items-center gap-2 ">
-                        <div
-                            class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
-                            <%= channelDetails.subscribers.length %>
-                        </div>
-                        <div> Subscribers</div>
-                    </div>
-                    <div class="flex flex-col justify-center items-center gap-2 ">
-                        <div
-                            class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
-                            <%= channelDetails.subscriptions.length %>
-                        </div>
-                        <div> Subscriptions</div>
-                    </div>
-                    <div class="flex flex-col justify-center items-center gap-2 ">
-                        <% const options={ day: '2-digit' , month: 'long' , year: 'numeric' }; const
-                            formattedDate=channelDetails.addedAt.toLocaleDateString(undefined, options); %>
-                            <div
-                                class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
-                                <%= formattedDate %>
-                            </div>
-                            <div> Added At </div>
-                    </div>
+                    <div> Name </div>
                 </div>
 
-                <% } %>
-        </div>
-
-
-        <!-- <div class="p-4 text-3xl text-cyan-500 font-semibold"> My Subscriptions </div>
-        <div class="p-4">
-
-        </div> -->
-
-        <div class="p-4 text-3xl text-cyan-500 font-semibold"> Subscribe More Channels </div>
-        <div class="p-4 ">
-            <% if (locals.channelsToSubscribe) { %>
-                <div class="flex flex-wrap gap-8 ">
-                    <% channelsToSubscribe.forEach(element=> { %>
-                        <div
-                            class="py-4 px-6 flex flex-col gap-4 bg-gray-950 hover:bg-black rounded-lg">
-                            <div
-                                class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-semibold rounded-lg w-full">
-                                <%= element.channelName %>
-                            </div>
-                            <button type="text" onclick="subscribeToChannel('<%= channelDetails._id %>','<%= element._id %>')"
-                                class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-300 focus:outline-none focus:bg-red-300">Subscribe</button>
-                        </div>
-                        <% }) %>
+                <!-- Display Subscribers Count -->
+                <div class="flex flex-col justify-center items-center gap-2">
+                    <div
+                        class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
+                        <%= channelDetails.subscribers.length %>
+                    </div>
+                    <div> Subscribers</div>
                 </div>
-                <% } %>
-        </div>
 
+                <!-- Display Subscriptions Count -->
+                <div class="flex flex-col justify-center items-center gap-2">
+                    <div
+                        class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
+                        <%= channelDetails.subscriptions.length %>
+                    </div>
+                    <div> Subscriptions</div>
+                </div>
 
+                <!-- Display Date Added -->
+                <div class="flex flex-col justify-center items-center gap-2">
+                    <% 
+                    // Format the date when the channel was added
+                    const options = { day: '2-digit', month: 'long', year: 'numeric' }; 
+                    const formattedDate = channelDetails.addedAt.toLocaleDateString(undefined, options); 
+                    %>
+                    <div
+                        class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-bold rounded-lg w-full">
+                        <%= formattedDate %>
+                    </div>
+                    <div> Added At </div>
+                </div>
+            </div>
+
+        <% } %>
     </div>
 
-    <script>
-        async function subscribeToChannel(channelId, targetChannelId) {
-            try {
-                const response = await fetch(`/yt/${channelId}/subscribe`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ targetChannelId })
-                });
+    <!-- Section for subscribing to more channels -->
+    <div class="p-4 text-3xl text-cyan-500 font-semibold"> Subscribe More Channels </div>
 
-                if (response.ok) {
-                    window.location.reload();
-                    // alert("Subscribed successfully");
-                    // Optionally, you can perform additional actions here
-                } else {
-                    const errorMessage = await response.text();
-                    throw new Error(errorMessage);
-                }
-            } catch (error) {
-                console.error("Error subscribing:", error);
-                alert("Failed to subscribe");
-                // Optionally, you can handle the error and display an error message to the user
+    <div class="p-4">
+        <% if (locals.channelsToSubscribe) { %>
+            <!-- Check if there are channels available to subscribe -->
+
+            <div class="flex flex-wrap gap-8">
+                <% channelsToSubscribe.forEach(element => { %>
+                    <!-- Loop through channels available for subscription -->
+
+                    <div class="py-4 px-6 flex flex-col gap-4 bg-gray-950 hover:bg-black rounded-lg">
+                        <!-- Card for each channel -->
+
+                        <!-- Display Channel Name -->
+                        <div
+                            class="px-4 py-2 bg-gradient-to-r from-cyan-300 to-cyan-800 text-gray-950 text-lg text-center font-semibold rounded-lg w-full">
+                            <%= element.channelName %>
+                        </div>
+
+                        <!-- Subscribe Button -->
+                        <button type="text" 
+                            onclick="subscribeToChannel('<%= channelDetails._id %>', '<%= element._id %>')"
+                            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-300 focus:outline-none focus:bg-red-300">
+                            Subscribe
+                        </button>
+                    </div>
+                <% }) %>
+            </div>
+
+        <% } %>
+    </div>
+</div>
+
+<script>
+    // Function to subscribe to a channel
+    async function subscribeToChannel(channelId, targetChannelId) {
+        try {
+            const response = await fetch(`/yt/${channelId}/subscribe`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ targetChannelId }) // Send target channel ID in the request body
+            });
+
+            if (response.ok) {
+                window.location.reload(); // Reload the page after successful subscription
+            } else {
+                const errorMessage = await response.text();
+                throw new Error(errorMessage); // Handle errors returned from the server
             }
+        } catch (error) {
+            console.error("Error subscribing:", error); // Log any errors in the console
+            alert("Failed to subscribe"); // Show error message to the user
         }
-    </script>
+    }
+</script>
 
-    <%- include('./partials/footer.ejs') %>
+<%- include('./partials/footer.ejs') %>
+<!-- Include the footer -->

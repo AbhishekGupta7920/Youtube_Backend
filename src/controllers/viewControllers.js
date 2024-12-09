@@ -23,7 +23,7 @@ async function addChannel(req, res) {
     }
 }
 
-
+// to get all channels 
 async function getAllChannels(req, res) {
     const allChannels = await channels.find({});
     return res.render('home', {
@@ -42,7 +42,7 @@ async function channelDetails(req, res) {
             _id: { $ne: channelId }, 
             subscribers: { $not: { $elemMatch: { subscriber: channelId } } } 
         });
-
+        // since all channels is get so send it as response
         return res.render('channel', {
             channelDetails: channelDetails,
             channelsToSubscribe: channelsToSubscribe

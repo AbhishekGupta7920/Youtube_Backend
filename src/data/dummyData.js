@@ -1,3 +1,4 @@
+// dummy data for to put in mongoDb
 const channelsName = [
     {
         channelName: "Tech Tips",

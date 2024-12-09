@@ -13,6 +13,7 @@ const {
 
 const router = express.Router();
 
+// handleling routes functions 
 router.post('/addChannel', addChannel);
 router.get('/all', getAllChannels);
 router.get('/names', getAllNames);
